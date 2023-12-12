@@ -94,9 +94,9 @@ public class WorldPhysics : MonoBehaviour
     bool checkAABBAABBCollision(Body bodyA, Body bodyB)
     {
         //get all first aabb's direction vectors for the vector positions
-        Vector3 firstFowardVec = bodyA.transform.forward;
-        Vector3 firstRightVec = bodyA.transform.right;
-        Vector3 firstTopVec = bodyA.transform.up;
+        Vector3 firstFowardVec = bodyA.transform.forward * bodyA.transform.localScale.x * 0.5f;
+        Vector3 firstRightVec = bodyA.transform.right * bodyA.transform.localScale.z * 0.5f;
+        Vector3 firstTopVec = bodyA.transform.up * bodyA.transform.localScale.y * 0.5f;
         //get all of the first aabb's front vector postions
         Vector3 firstAABBFrontTopRightVecPos = bodyA.transform.position +
                 ((firstFowardVec) + (firstRightVec) + (firstTopVec));
@@ -346,9 +346,9 @@ public class WorldPhysics : MonoBehaviour
         }
 
         //get all second aabb's direction vectors for the vector positions
-        Vector3 secondFowardVec = bodyB.transform.forward;
-        Vector3 secondRightVec = bodyB.transform.right;
-        Vector3 secondTopVec = bodyB.transform.up;
+        Vector3 secondFowardVec = bodyB.transform.forward * bodyB.transform.localScale.x * 0.5f;
+        Vector3 secondRightVec = bodyB.transform.right * bodyB.transform.localScale.z * 0.5f;
+        Vector3 secondTopVec = bodyB.transform.up * bodyB.transform.localScale.y * 0.5f;
         //get all of the second aabb's front vector postions
         Vector3 secondAABBFrontTopRightVecPos = bodyB.transform.position +
                 ((secondFowardVec) + (secondRightVec) + (secondTopVec));
@@ -873,8 +873,8 @@ public class WorldPhysics : MonoBehaviour
                             + positiveExtents.y * Mathf.Abs(PlaneNormal.y)
                             + positiveExtents.z * Mathf.Abs(PlaneNormal.z);
         //still haven't got dist correct 
-        //float distance = Mathf.Abs(PlaneNormal, bodyA.transform.position) - bodyB.transform.position.magnitude;
-        float distance = bodyA.transform.position.magnitude - bodyB.transform.position.magnitude;
+        float distance = Vector3.Dot(PlaneNormal, bodyA.transform.position) - bodyB.transform.position.magnitude;
+        //float distance = bodyA.transform.position.magnitude - bodyB.transform.position.magnitude;
         return Mathf.Abs(distance) >= Projection;
     }
 
@@ -1001,7 +1001,7 @@ public class WorldPhysics : MonoBehaviour
         for (int i = 0; i < bodies.Count; i++)
         {
             Body bodyA = bodies[i];
-            for (int j = 0; j < bodies.Count; j++)
+            for (int j = 1; j < bodies.Count; j++)
             {
                 Body bodyB = bodies[j];
                 //checks for collision detection type
@@ -1031,7 +1031,7 @@ public class WorldPhysics : MonoBehaviour
                             points += 1;
                             //delete bodyB and add +1 to the score
                         }
-                        else if(bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
+                        else if (bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
                         {
                             Debug.Log("Hit");
                             Destroy(bodyA.gameObject);
@@ -1045,7 +1045,18 @@ public class WorldPhysics : MonoBehaviour
                     {
                     }
                 }
-                else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 2) 
+                else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 1)
+                {
+                    if (checkSphereAABBCollision(bodyA, bodyB))
+                    {
+                        Debug.Log("col");
+                    }
+                }
+                else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 1)
+                {
+
+                }
+                else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 2)
                 {
                     if (checkSpherePlaneCollision(bodyA, bodyB))
                     {
@@ -1123,11 +1134,23 @@ public class WorldPhysics : MonoBehaviour
                     {
                     }
                 }
+                else if (bodyA.GetShape() == 1 && bodyB.GetShape() == 1)
+                {
+                    if (bodyA != bodyB)
+                    {
+                        if (checkAABBAABBCollision(bodyA, bodyB))
+                        {
+                            Debug.Log("box");
+                        }
+                    }
+                }
                 else if (bodyA.GetShape() == 1 && bodyB.GetShape() == 2)
                 {
+                    //currently broken
                     if (checkAABBPlaneCollision(bodyA, bodyB))
                     {
-                        Debug.Log("Bruh");
+                        //Debug.Log("Bruh");
+
                     }
                     else
                     {
