@@ -158,10 +158,12 @@ MonoBehaviour:
   ShapeType: 2
   ObjectType: 0
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  mass: 1
   drag: 0
   radius: 0.5
-  isProjectile: 0
+  isKinematic: 0
+  coefficientOfFriction: 0.5
+  Bounciness: 0
 --- !u!64 &326936401
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -371,10 +373,12 @@ MonoBehaviour:
   ShapeType: 2
   ObjectType: 0
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  mass: 1
   drag: 0
   radius: 0.5
-  isProjectile: 0
+  isKinematic: 0
+  coefficientOfFriction: 0.5
+  Bounciness: 0
 --- !u!1 &529034750
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,10 +833,12 @@ MonoBehaviour:
   ShapeType: 0
   ObjectType: 2
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  mass: 1
   drag: 0
   radius: 1
-  isProjectile: 0
+  isKinematic: 0
+  coefficientOfFriction: 0.5
+  Bounciness: 0
 --- !u!1 &1512632959
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,10 +874,12 @@ MonoBehaviour:
   ShapeType: 0
   ObjectType: 2
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  mass: 1
   drag: 0
   radius: 1
-  isProjectile: 0
+  isKinematic: 0
+  coefficientOfFriction: 0.5
+  Bounciness: 0
 --- !u!135 &1512632961
 SphereCollider:
   m_ObjectHideFlags: 0

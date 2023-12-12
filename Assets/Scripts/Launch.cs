@@ -28,11 +28,11 @@ public class Launch : MonoBehaviour
         GameObject newObject = Instantiate(projectilePrefab);
         newObject.transform.position = transform.position;
         body = newObject.GetComponent<Body>();
-        body.vel = new Vector3((launchSpeed * (Mathf.Cos(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch)))/body.grav,
-                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch))) / body.grav,
-                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchPitch))) / body.grav);
+        body.vel = new Vector3((launchSpeed * (Mathf.Cos(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch)))/body.mass,
+                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch))) / body.mass,
+                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchPitch))) / body.mass);
         body.drag = drag;
-        body.grav = gravity;
+        body.mass = gravity;
         body.ObjectType = 1;
     }
 
