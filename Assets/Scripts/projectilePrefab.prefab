@@ -121,7 +121,9 @@ MonoBehaviour:
   ShapeType: 0
   ObjectType: 1
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  mass: 1
   drag: 0
   radius: 0.5
-  isProjectile: 1
+  isKinematic: 1
+  coefficientOfFriction: 0.5
+  Bounciness: 0

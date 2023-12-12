@@ -1001,48 +1001,51 @@ public class WorldPhysics : MonoBehaviour
         for (int i = 0; i < bodies.Count; i++)
         {
             Body bodyA = bodies[i];
-            for (int j = 1; j < bodies.Count; j++)
+            for (int j = 0; j < bodies.Count; j++)
             {
                 Body bodyB = bodies[j];
                 //checks for collision detection type
                 if (bodyA.GetShape() == 0 && bodyB.GetShape() == 0)
                 {
-                    if (checkSphereSphereCollision(bodyA, bodyB))
+                    if (bodyA != bodyB)
                     {
-                        if (bodyA.isKinematic && bodyB.isKinematic)
+                        if (checkSphereSphereCollision(bodyA, bodyB))
                         {
-                            MomentumConservationCollision(bodyA, bodyB);
-                        }
-                        else if (bodyA.isKinematic && !bodyB.isKinematic)
-                        {
-                            Vector3 Normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
-                            MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
-                        }
-                        else if (!bodyA.isKinematic && bodyB.isKinematic)
-                        {
-                            Vector3 Normal = bodyA.transform.rotation * new Vector3(0, 1, 0);
-                            MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
-                        }
-                        if (bodyA.ObjectType == 1 && bodyB.ObjectType == 2)
-                        {
-                            Debug.Log("Hit");
-                            Destroy(bodyB.gameObject);
-                            bodies.Remove(bodyB);
-                            points += 1;
-                            //delete bodyB and add +1 to the score
-                        }
-                        else if (bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
-                        {
-                            Debug.Log("Hit");
-                            Destroy(bodyA.gameObject);
-                            bodies.Remove(bodyA);
-                            points += 1;
-                            //delete bodyA and add +1 to the score
-                        }
+                            if (bodyA.isKinematic && bodyB.isKinematic)
+                            {
+                                MomentumConservationCollision(bodyA, bodyB);
+                            }
+                            else if (bodyA.isKinematic && !bodyB.isKinematic)
+                            {
+                                Vector3 Normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
+                                MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
+                            }
+                            else if (!bodyA.isKinematic && bodyB.isKinematic)
+                            {
+                                Vector3 Normal = bodyA.transform.rotation * new Vector3(0, 1, 0);
+                                MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
+                            }
+                            if (bodyA.ObjectType == 1 && bodyB.ObjectType == 2)
+                            {
+                                Debug.Log("Hit");
+                                Destroy(bodyB.gameObject);
+                                bodies.Remove(bodyB);
+                                points += 1;
+                                //delete bodyB and add +1 to the score
+                            }
+                            else if (bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
+                            {
+                                Debug.Log("Hit");
+                                Destroy(bodyA.gameObject);
+                                bodies.Remove(bodyA);
+                                points += 1;
+                                //delete bodyA and add +1 to the score
+                            }
 
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
+                        }
                     }
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 1)
@@ -1060,6 +1063,11 @@ public class WorldPhysics : MonoBehaviour
                 {
                     if (checkSpherePlaneCollision(bodyA, bodyB))
                     {
+                        if (bodyA.isKinematic)
+                        {
+                            bodyA = Fix(bodyA, bodyB);
+                        }
+
                         if (bodyA.isKinematic && bodyB.isKinematic)
                         {
                             MomentumConservationCollision(bodyA, bodyB);
@@ -1076,10 +1084,7 @@ public class WorldPhysics : MonoBehaviour
                         }
 
 
-                        if (bodyA.isKinematic)
-                        {
-                            bodyA = Fix(bodyA, bodyB);
-                        }
+                        
                     }
                     else
                     {
