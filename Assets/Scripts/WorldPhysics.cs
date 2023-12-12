@@ -1145,7 +1145,11 @@ public class WorldPhysics : MonoBehaviour
                     {
                         if (checkAABBAABBCollision(bodyA, bodyB))
                         {
-                            Debug.Log("box");
+                            Vector3 displacement = bodyA.transform.position - bodyB.transform.position;
+                            //float projectionA = Vector3.Dot(-displacement, normal);
+                            //float projectionB = Vector3.Dot(displacement, normal);
+                            bodyA.transform.position -= Vector3.Scale(-displacement, bodyA.transform.localScale) * 0.25f;
+                            bodyB.transform.position -= Vector3.Scale(displacement, bodyB.transform.localScale) * 0.25f;
                         }
                     }
                 }
