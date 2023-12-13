@@ -1100,10 +1100,11 @@ public class WorldPhysics : MonoBehaviour
         
         Quaternion prevRotation = bodyB.transform.rotation;
         bodyB.transform.LookAt(Nearest + bodyB.transform.position);
-        Vector3 normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
+        Vector3 normal = bodyB.transform.rotation * new Vector3(1, 0, 0);
         Vector3 displacement = bodyA.transform.position - (bodyB.transform.position + Nearest);
         float projection = Vector3.Dot(displacement, normal);
-        bodyA.transform.position -= normal * (bodyA.radius - projection);
+        bodyA.transform.position -= normal * (bodyA.radius - projection) * 0.25f;
+        bodyB.transform.position += normal * (bodyA.radius - projection) * 0.25f;
         bodyB.transform.rotation = prevRotation;
         return bodyA;
     }
