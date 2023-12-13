@@ -1241,23 +1241,6 @@ public class WorldPhysics : MonoBehaviour
                     {
                         bodyA = FixSphereAABBCol(bodyA, bodyB);
                     }
-
-                    if (bodyA.isKinematic && bodyB.isKinematic)
-                    {
-                        MomentumConservationCollision(bodyA, bodyB);
-                    }
-                    else if (bodyA.isKinematic && !bodyB.isKinematic)
-                    {
-                        Vector3 Normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
-                        MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
-                    }
-                    else if (!bodyA.isKinematic && bodyB.isKinematic)
-                    {
-                        Vector3 Normal = bodyA.transform.rotation * new Vector3(0, 1, 0);
-                        MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
-                    }
-
-
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 1)
                 {
