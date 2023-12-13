@@ -53,12 +53,12 @@ public class WorldPhysics : MonoBehaviour
     bool checkSphereAABBCollision(Body bodyA, Body bodyB)
     {
         //gets all of the aabb's face positions
-        Vector3 aabbFrontFacePos = bodyB.transform.position + bodyB.transform.forward;
-        Vector3 aabbBackFacePos = bodyB.transform.position - bodyB.transform.forward;
-        Vector3 aabbRightFacePos = bodyB.transform.position + bodyB.transform.right;
-        Vector3 aabbLeftFacePos = bodyB.transform.position - bodyB.transform.right;
-        Vector3 aabbTopFacePos = bodyB.transform.position + bodyB.transform.up;
-        Vector3 aabbBottomFacePos = bodyB.transform.position - bodyB.transform.up;
+        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyA.transform.localScale.z * 0.5f);
+        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
 
 
         float aabbFrontFacePosProjection = Vector3.Dot(bodyA.transform.position - aabbFrontFacePos, bodyB.transform.forward);
@@ -905,8 +905,8 @@ public class WorldPhysics : MonoBehaviour
         if (Vector3.Dot(Velocity, normal) < 0)
         {
             bodyA.AddForce(FrictionForce);
-            bodyA.transform.position += normal * (bodyA.radius - projection);
         }
+        bodyA.transform.position += normal * (bodyA.radius - projection);
         Debug.DrawLine(bodyA.transform.position, bodyA.transform.position + normalForce, Color.green);
         Debug.DrawLine(bodyA.transform.position, bodyA.transform.position + gravityForce, Color.magenta);
         Debug.DrawLine(bodyA.transform.position, bodyA.transform.position + FrictionForce, Color.yellow);
@@ -919,6 +919,192 @@ public class WorldPhysics : MonoBehaviour
         //draw forces
 
 
+        return bodyA;
+    }
+
+    Body FixSphereAABBCol(Body bodyA, Body bodyB)
+    {
+        //gets all of the aabb's face positions
+        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyA.transform.localScale.z * 0.5f);
+        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
+
+        Vector3 Min = aabbFrontFacePos;
+        Vector3 Max = aabbFrontFacePos;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == 0)
+            {
+                if (Min.x > aabbBackFacePos.x)
+                {
+                    Min.x = aabbBackFacePos.x;
+                }
+                if (Min.y > aabbBackFacePos.y)
+                {
+                    Min.y = aabbBackFacePos.y;
+                }
+                if (Min.z > aabbBackFacePos.z)
+                {
+                    Min.z = aabbBackFacePos.z;
+                }
+            }
+            if (i == 1)
+            {
+                if (Min.x > aabbRightFacePos.x)
+                {
+                    Min.x = aabbRightFacePos.x;
+                }
+                if (Min.y > aabbRightFacePos.y)
+                {
+                    Min.y = aabbRightFacePos.y;
+                }
+                if (Min.z > aabbRightFacePos.z)
+                {
+                    Min.z = aabbRightFacePos.z;
+                }
+            }
+            if (i == 2)
+            {
+                if (Min.x > aabbLeftFacePos.x)
+                {
+                    Min.x = aabbLeftFacePos.x;
+                }
+                if (Min.y > aabbLeftFacePos.y)
+                {
+                    Min.y = aabbLeftFacePos.y;
+                }
+                if (Min.z > aabbLeftFacePos.z)
+                {
+                    Min.z = aabbLeftFacePos.z;
+                }
+            }
+            if (i == 3)
+            {
+                if (Min.x > aabbTopFacePos.x)
+                {
+                    Min.x = aabbTopFacePos.x;
+                }
+                if (Min.y > aabbTopFacePos.y)
+                {
+                    Min.y = aabbTopFacePos.y;
+                }
+                if (Min.z > aabbTopFacePos.z)
+                {
+                    Min.z = aabbTopFacePos.z;
+                }
+            }
+            if (i == 4)
+            {
+                if (Min.x > aabbBottomFacePos.x)
+                {
+                    Min.x = aabbBottomFacePos.x;
+                }
+                if (Min.y > aabbBottomFacePos.y)
+                {
+                    Min.y = aabbBottomFacePos.y;
+                }
+                if (Min.z > aabbBottomFacePos.z)
+                {
+                    Min.z = aabbBottomFacePos.z;
+                }
+            }
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == 0)
+            {
+                if (Max.x < aabbBackFacePos.x)
+                {
+                    Max.x = aabbBackFacePos.x;
+                }
+                if (Max.y < aabbBackFacePos.y)
+                {
+                    Max.y = aabbBackFacePos.y;
+                }
+                if (Max.z < aabbBackFacePos.z)
+                {
+                    Max.z = aabbBackFacePos.z;
+                }
+            }
+            if (i == 1)
+            {
+                if (Max.x < aabbRightFacePos.x)
+                {
+                    Max.x = aabbRightFacePos.x;
+                }
+                if (Max.y < aabbRightFacePos.y)
+                {
+                    Max.y = aabbRightFacePos.y;
+                }
+                if (Max.z < aabbRightFacePos.z)
+                {
+                    Max.z = aabbRightFacePos.z;
+                }
+            }
+            if (i == 2)
+            {
+                if (Max.x < aabbLeftFacePos.x)
+                {
+                    Max.x = aabbLeftFacePos.x;
+                }
+                if (Max.y < aabbLeftFacePos.y)
+                {
+                    Max.y = aabbLeftFacePos.y;
+                }
+                if (Max.z < aabbLeftFacePos.z)
+                {
+                    Max.z = aabbLeftFacePos.z;
+                }
+            }
+            if (i == 3)
+            {
+                if (Max.x < aabbTopFacePos.x)
+                {
+                    Max.x = aabbTopFacePos.x;
+                }
+                if (Max.y < aabbTopFacePos.y)
+                {
+                    Max.y = aabbTopFacePos.y;
+                }
+                if (Max.z < aabbTopFacePos.z)
+                {
+                    Max.z = aabbTopFacePos.z;
+                }
+            }
+            if (i == 4)
+            {
+                if (Max.x < aabbBottomFacePos.x)
+                {
+                    Max.x = aabbBottomFacePos.x;
+                }
+                if (Max.y < aabbBottomFacePos.y)
+                {
+                    Max.y = aabbBottomFacePos.y;
+                }
+                if (Max.z < aabbBottomFacePos.z)
+                {
+                    Max.z = aabbBottomFacePos.z;
+                }
+            }
+        }
+
+        Vector3 Nearest = bodyA.transform.position;
+        Nearest.x = Mathf.Clamp(bodyA.transform.position.x, bodyB.transform.position.x - Min.x, bodyB.transform.position.x - Max.x);
+        Nearest.y = Mathf.Clamp(bodyA.transform.position.y, bodyB.transform.position.y - Min.x, bodyB.transform.position.x - Max.y);
+        Nearest.z = Mathf.Clamp(bodyA.transform.position.z, bodyB.transform.position.z - Min.x, bodyB.transform.position.x - Max.z);
+        
+        Quaternion prevRotation = bodyB.transform.rotation;
+        bodyB.transform.LookAt(Nearest + bodyB.transform.position);
+        Vector3 normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
+        Vector3 displacement = bodyA.transform.position - (bodyB.transform.position + Nearest);
+        float projection = Vector3.Dot(displacement, normal);
+        bodyA.transform.position -= normal * (bodyA.radius - projection);
+        bodyB.transform.rotation = prevRotation;
         return bodyA;
     }
 
@@ -1052,7 +1238,7 @@ public class WorldPhysics : MonoBehaviour
                 {
                     if (checkSphereAABBCollision(bodyA, bodyB))
                     {
-                        Debug.Log("col");
+                        bodyA = FixSphereAABBCol(bodyA, bodyB);
                     }
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 1)
