@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 0
   ObjectType: 2
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -244,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 305554095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.15, y: 1.15, z: 3.4}
+  m_LocalPosition: {x: 7.15, y: 4.3, z: 3.4}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -371,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 2
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -499,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 2
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -540,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -667,6 +671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -873,6 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1000,6 +1006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1221,6 +1228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1348,6 +1356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1721,6 +1730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 0
   ObjectType: 2
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1762,6 +1772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 0
   ObjectType: 2
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0
@@ -1996,6 +2007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 1
   ObjectType: 0
+  PigToughness: 10
   vel: {x: 0, y: 0, z: 0}
   mass: 1
   drag: 0

@@ -13,6 +13,9 @@ public class Shape : MonoBehaviour
     //ObjectType = 0 nothing
     //ObjectType = 1 Bird
     //ObjectType = 2 Pig
+
+    public int PigToughness = 10;
+
     public int GetShape()
     {
         return ShapeType;
