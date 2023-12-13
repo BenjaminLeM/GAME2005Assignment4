@@ -53,12 +53,12 @@ public class WorldPhysics : MonoBehaviour
     bool checkSphereAABBCollision(Body bodyA, Body bodyB)
     {
         //gets all of the aabb's face positions
-        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyA.transform.localScale.z * 0.5f);
-        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyB.transform.lossyScale.z * 0.5f);
+        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyB.transform.lossyScale.x * 0.5f);
 
 
         float aabbFrontFacePosProjection = Vector3.Dot(bodyA.transform.position - aabbFrontFacePos, bodyB.transform.forward);
@@ -94,9 +94,9 @@ public class WorldPhysics : MonoBehaviour
     bool checkAABBAABBCollision(Body bodyA, Body bodyB)
     {
         //get all first aabb's direction vectors for the vector positions
-        Vector3 firstFowardVec = bodyA.transform.forward * bodyA.transform.localScale.x * 0.5f;
-        Vector3 firstRightVec = bodyA.transform.right * bodyA.transform.localScale.z * 0.5f;
-        Vector3 firstTopVec = bodyA.transform.up * bodyA.transform.localScale.y * 0.5f;
+        Vector3 firstFowardVec = bodyA.transform.forward * bodyA.transform.lossyScale.x * 0.5f;
+        Vector3 firstRightVec = bodyA.transform.right * bodyA.transform.lossyScale.z * 0.5f;
+        Vector3 firstTopVec = bodyA.transform.up * bodyA.transform.lossyScale.y * 0.5f;
         //get all of the first aabb's front vector postions
         Vector3 firstAABBFrontTopRightVecPos = bodyA.transform.position +
                 ((firstFowardVec) + (firstRightVec) + (firstTopVec));
@@ -346,9 +346,9 @@ public class WorldPhysics : MonoBehaviour
         }
 
         //get all second aabb's direction vectors for the vector positions
-        Vector3 secondFowardVec = bodyB.transform.forward * bodyB.transform.localScale.x * 0.5f;
-        Vector3 secondRightVec = bodyB.transform.right * bodyB.transform.localScale.z * 0.5f;
-        Vector3 secondTopVec = bodyB.transform.up * bodyB.transform.localScale.y * 0.5f;
+        Vector3 secondFowardVec = bodyB.transform.forward * bodyB.transform.lossyScale.x * 0.5f;
+        Vector3 secondRightVec = bodyB.transform.right * bodyB.transform.lossyScale.z * 0.5f;
+        Vector3 secondTopVec = bodyB.transform.up * bodyB.transform.lossyScale.y * 0.5f;
         //get all of the second aabb's front vector postions
         Vector3 secondAABBFrontTopRightVecPos = bodyB.transform.position +
                 ((secondFowardVec) + (secondRightVec) + (secondTopVec));
@@ -612,9 +612,9 @@ public class WorldPhysics : MonoBehaviour
     bool checkAABBPlaneCollision(Body bodyA, Body bodyB)
     {
         //get all  aabb's direction vectors for the vector positions
-        Vector3 FowardVec = bodyA.transform.forward * bodyA.transform.localScale.x * 0.5f;
-        Vector3 RightVec = bodyA.transform.right * bodyA.transform.localScale.z * 0.5f;
-        Vector3 TopVec = bodyA.transform.up * bodyA.transform.localScale.y * 0.5f;
+        Vector3 FowardVec = bodyA.transform.forward * bodyA.transform.lossyScale.x * 0.5f;
+        Vector3 RightVec = bodyA.transform.right * bodyA.transform.lossyScale.z * 0.5f;
+        Vector3 TopVec = bodyA.transform.up * bodyA.transform.lossyScale.y * 0.5f;
         //get all of the  aabb's front vector postions
         Vector3 AABBFrontTopRightVecPos = bodyA.transform.position +
                 ((FowardVec) + (RightVec) + (TopVec));
@@ -925,12 +925,12 @@ public class WorldPhysics : MonoBehaviour
     Body FixSphereAABBCol(Body bodyA, Body bodyB)
     {
         //gets all of the aabb's face positions
-        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyA.transform.localScale.z * 0.5f);
-        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
-        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyA.transform.localScale.x * 0.5f);
+        Vector3 aabbFrontFacePos = bodyB.transform.position + (bodyB.transform.forward * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbBackFacePos = bodyB.transform.position - (bodyB.transform.forward * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbRightFacePos = bodyB.transform.position + (bodyB.transform.right * bodyB.transform.lossyScale.z * 0.5f);
+        Vector3 aabbLeftFacePos = bodyB.transform.position - (bodyB.transform.right * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbTopFacePos = bodyB.transform.position + (bodyB.transform.up * bodyB.transform.lossyScale.x * 0.5f);
+        Vector3 aabbBottomFacePos = bodyB.transform.position - (bodyB.transform.up * bodyB.transform.lossyScale.x * 0.5f);
 
         Vector3 Min = aabbFrontFacePos;
         Vector3 Max = aabbFrontFacePos;
@@ -1104,7 +1104,6 @@ public class WorldPhysics : MonoBehaviour
         Vector3 displacement = bodyA.transform.position - (bodyB.transform.position + Nearest);
         float projection = Vector3.Dot(displacement, normal);
         bodyA.transform.position -= normal * (bodyA.radius - projection) * 0.25f;
-        bodyB.transform.position += normal * (bodyA.radius - projection) * 0.25f;
         bodyB.transform.rotation = prevRotation;
         return bodyA;
     }
@@ -1237,10 +1236,28 @@ public class WorldPhysics : MonoBehaviour
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 1)
                 {
+                    
                     if (checkSphereAABBCollision(bodyA, bodyB))
                     {
                         bodyA = FixSphereAABBCol(bodyA, bodyB);
                     }
+
+                    if (bodyA.isKinematic && bodyB.isKinematic)
+                    {
+                        MomentumConservationCollision(bodyA, bodyB);
+                    }
+                    else if (bodyA.isKinematic && !bodyB.isKinematic)
+                    {
+                        Vector3 Normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
+                        MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
+                    }
+                    else if (!bodyA.isKinematic && bodyB.isKinematic)
+                    {
+                        Vector3 Normal = bodyA.transform.rotation * new Vector3(0, 1, 0);
+                        MomentumConservationCollisionAsymmtrical(bodyA, bodyB, Normal);
+                    }
+
+
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 1)
                 {
@@ -1335,8 +1352,8 @@ public class WorldPhysics : MonoBehaviour
                             Vector3 displacement = bodyA.transform.position - bodyB.transform.position;
                             //float projectionA = Vector3.Dot(-displacement, normal);
                             //float projectionB = Vector3.Dot(displacement, normal);
-                            bodyA.transform.position -= Vector3.Scale(-displacement, bodyA.transform.localScale) * 0.25f;
-                            bodyB.transform.position -= Vector3.Scale(displacement, bodyB.transform.localScale) * 0.25f;
+                            bodyA.transform.position -= Vector3.Scale(-displacement, bodyA.transform.lossyScale) * 0.25f;
+                            bodyB.transform.position -= Vector3.Scale(displacement, bodyB.transform.lossyScale) * 0.25f;
                         }
                     }
                 }
