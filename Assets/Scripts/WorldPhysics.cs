@@ -1191,6 +1191,7 @@ public class WorldPhysics : MonoBehaviour
             {
                 Body bodyB = bodies[j];
                 //checks for collision detection type
+                //shape type 0 == sphere, 1 = aabb, 2 == plane, 3 == half-space
                 if (bodyA.GetShape() == 0 && bodyB.GetShape() == 0)
                 {
                     if (bodyA != bodyB)
@@ -1236,7 +1237,7 @@ public class WorldPhysics : MonoBehaviour
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 1)
                 {
-                    
+                    //checks the sphere aabb collision
                     if (checkSphereAABBCollision(bodyA, bodyB))
                     {
                         bodyA = FixSphereAABBCol(bodyA, bodyB);
@@ -1330,6 +1331,7 @@ public class WorldPhysics : MonoBehaviour
                 {
                     if (bodyA != bodyB)
                     {
+                        
                         if (checkAABBAABBCollision(bodyA, bodyB))
                         {
                             Vector3 displacement = bodyA.transform.position - bodyB.transform.position;
